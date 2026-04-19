@@ -14,7 +14,7 @@
   --r:14px;--rs:8px
 }
 body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.pg{display:none;min-height:100vh}.pg.on{display:block}
+.pg{display:none!important;min-height:100vh}.pg.on{display:block!important}
 #pg-login.on,#pg-register.on{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8f5,#ffeee6)}
 nav{background:var(--card);border-bottom:1px solid var(--border);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--shadow)}
 .logo{font-size:20px;font-weight:900;color:var(--p);cursor:pointer}
@@ -440,8 +440,13 @@ async function api(method, path, body, auth) {
 
 // ======= NAV =======
 function gp(n) {
-  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
-  document.getElementById('pg-'+n).classList.add('on');
+  document.querySelectorAll('.pg').forEach(function(p){
+    p.classList.remove('on');
+    p.style.display = 'none';
+  });
+  var target = document.getElementById('pg-'+n);
+  target.classList.add('on');
+  target.style.display = '';
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on')});
   var map={home:0,myrecipes:1,profile:2,admin:3};
   var btns=document.querySelectorAll('.nb');
@@ -559,8 +564,11 @@ async function checkUrlTokens() {
 }
 
 function afterLogin() {
-  // إخفاء كل الصفحات أولاً
-  document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
+  // إخفاء كل الصفحات أولاً بشكل قاطع
+  document.querySelectorAll('.pg').forEach(function(p){ 
+    p.classList.remove('on');
+    p.style.display = 'none';
+  });
   document.getElementById('navbar').style.display = 'flex';
   document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
   // استعادة الصفحة الأخيرة بعد الريفرش
