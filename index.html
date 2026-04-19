@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>وصفاتي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#e8572a;--pd:#c44420;--pl:#fff3ee;--pl2:#ffe0d0;
+  --bg:#f5f3ef;--card:#fff;--text:#1a1a1a;--muted:#888;
+  --border:rgba(0,0,0,0.09);--shadow:0 2px 14px rgba(0,0,0,0.07);
+  --r:14px;--rs:8px
+}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.pg{display:none;min-height:100vh}.pg.on{display:block}
+#pg-login.on,#pg-register.on{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8f5,#ffeee6)}
+nav{background:var(--card);border-bottom:1px solid var(--border);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--shadow)}
+.logo{font-size:20px;font-weight:900;color:var(--p);cursor:pointer}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nb{padding:7px 15px;border:none;border-radius:20px;background:transparent;cursor:pointer;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;color:var(--muted);transition:all .2s}
+.nb:hover,.nb.on{background:var(--pl);color:var(--p)}
+.nb.red{color:#dc2626}.nb.red:hover{background:#fef2f2}
+.lbox{background:var(--card);border-radius:24px;padding:44px 40px;width:100%;max-width:420px;box-shadow:0 8px 40px rgba(232,87,42,.13)}
+.llogo{text-align:center;font-size:44px;margin-bottom:6px}
+.ltitle{text-align:center;font-size:26px;font-weight:900;color:var(--p);margin-bottom:4px}
+.lsub{text-align:center;font-size:14px;color:var(--muted);margin-bottom:28px}
+.f{margin-bottom:16px}
+.f label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+.f input,.f select,.f textarea{width:100%;padding:11px 15px;border:1.5px solid var(--border);border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:14px;color:var(--text);background:#fafafa;transition:border .2s;outline:none}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--p);background:#fff}
+.f textarea{resize:vertical;min-height:90px}
+.btn{padding:12px 22px;border:none;border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-p{background:var(--p);color:#fff;width:100%;justify-content:center}
+.btn-p:hover{background:var(--pd);transform:translateY(-1px)}
+.btn-s{background:var(--pl);color:var(--p)}.btn-s:hover{background:var(--pl2)}
+.sw{text-align:center;margin-top:16px;font-size:13px;color:var(--muted)}
+.lnk{color:var(--p);cursor:pointer;font-weight:700}
+.hero{background:linear-gradient(135deg,var(--p) 0%,#ff8f5c 100%);color:#fff;padding:52px 28px;text-align:center}
+.hero h1{font-size:34px;font-weight:900;margin-bottom:8px}
+.hero p{font-size:16px;opacity:.9;margin-bottom:26px}
+.hsearch{display:flex;max-width:500px;margin:0 auto;gap:8px}
+.hsearch input{flex:1;padding:13px 20px;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:14px;outline:none;color:var(--text)}
+.hsearch button{padding:13px 22px;background:#fff;color:var(--p);border:none;border-radius:12px;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif}
+.fbar{padding:14px 28px;background:var(--card);border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center;overflow-x:auto}
+.fbar::-webkit-scrollbar{height:3px}
+.chip{padding:7px 16px;border:1.5px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;white-space:nowrap;background:var(--card);color:var(--muted);transition:all .2s}
+.chip:hover,.chip.on{background:var(--p);color:#fff;border-color:var(--p)}
+.grid-wrap{padding:24px 28px}
+.gtitle{font-size:17px;font-weight:900;margin-bottom:18px}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+.rcard{background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);transition:all .25s}
+.rcard:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(232,87,42,.14)}
+.rthumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;cursor:pointer;overflow:hidden}
+.rthumb img{width:100%;height:100%;object-fit:cover}
+.rcbadge{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;color:var(--p)}
+.rauthor{padding:12px 14px 0;display:flex;align-items:center;gap:8px}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.12);cursor:pointer;overflow:hidden;transition:transform .2s}
+.av:hover{transform:scale(1.1)}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.aname{font-size:13px;font-weight:700}.adate{font-size:11px;color:var(--muted)}
+.rbody{padding:12px 14px;cursor:pointer}
+.rtitle{font-size:16px;font-weight:700;margin-bottom:6px}
+.rstars{color:#f59e0b;font-size:13px;margin-bottom:8px}
+.rmeta{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-bottom:12px}
+.ract{padding:0 14px 14px;display:flex;gap:8px}
+.lbtn{padding:7px 14px;border-radius:20px;border:1.5px solid #fecdd3;background:#fff;color:#e11d48;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;font-family:'Cairo',sans-serif}
+.lbtn:hover,.lbtn.liked{background:#e11d48;color:#fff;border-color:#e11d48}
+.dlbtn{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;font-family:'Cairo',sans-serif}
+.dlbtn:hover,.dlbtn.disliked{background:#f1f5f9;color:#475569;border-color:#94a3b8}
+.obtn{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;font-family:'Cairo',sans-serif;margin-right:auto}
+.obtn:hover{background:var(--pl);color:var(--p);border-color:var(--p)}
+.dthumb{width:100%;height:420px;display:flex;align-items:center;justify-content:center;font-size:130px;position:relative;overflow:hidden}
+.dthumb img{width:100%;height:100%;object-fit:cover}
+.dbody{padding:0 40px 60px;max-width:100%}
+.dtitle{font-size:36px;font-weight:900;margin:28px 0 12px}
+.dmeta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:20px}
+.dauthor-chip{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 16px 6px 8px;cursor:pointer;transition:all .2s}
+.dauthor-chip:hover{border-color:var(--p);background:var(--pl)}
+.dstat{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.dactions{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap}
+.dsec{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:28px;margin-bottom:20px;box-shadow:var(--shadow)}
+.dsec h3{font-size:16px;font-weight:900;margin-bottom:14px;color:var(--p)}
+.dsec p{font-size:15px;line-height:2;color:var(--text)}
+.cbox{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:28px;margin-bottom:20px;box-shadow:var(--shadow)}
+.cbox h3{font-size:16px;font-weight:900;margin-bottom:20px;color:var(--p)}
+.ci{display:flex;gap:12px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.ci:last-of-type{border:none;margin:0;padding:0}
+.cbody{flex:1}.cname{font-size:13px;font-weight:700;margin-bottom:2px}
+.cstars{color:#f59e0b;font-size:13px;margin-bottom:5px}
+.ctext{font-size:14px;line-height:1.7;margin-bottom:8px}
+.cphoto{max-width:220px;border-radius:10px;border:1px solid var(--border);margin-top:6px}
+.cdate{font-size:11px;color:var(--muted)}
+.addcomm{background:var(--bg);border-radius:var(--rs);padding:20px;border:1px solid var(--border);margin-top:20px}
+.addcomm h4{font-size:14px;font-weight:700;margin-bottom:14px}
+.sp-row{display:flex;gap:8px;margin-bottom:14px}
+.sp{width:36px;height:36px;border:1.5px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.sp:hover,.sp.on{background:var(--pl);border-color:var(--p)}
+.uarea{border:2px dashed var(--border);border-radius:var(--rs);padding:18px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:14px}
+.uarea:hover{border-color:var(--p);background:var(--pl)}
+.uarea input{display:none}
+.prev{max-width:180px;border-radius:8px;margin-top:10px}
+.ph{padding:24px 28px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--card)}
+.ph-t{font-size:20px;font-weight:900}.ph-s{font-size:13px;color:var(--muted);margin-top:3px}
+.mlist{padding:20px 28px;display:flex;flex-direction:column;gap:14px}
+.mi{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:16px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow)}
+.mico{width:60px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:32px;background:var(--pl);flex-shrink:0}
+.minfo{flex:1}.mname{font-size:15px;font-weight:700;margin-bottom:4px}
+.mmeta{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;gap:14px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.bg{background:#dcfce7;color:#15803d}
+.ibtns{display:flex;gap:8px;flex-shrink:0}
+.ibtn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s}
+.ibtn:hover{background:var(--pl);border-color:var(--p)}.ibtn.del:hover{background:#fee2e2;border-color:#fecaca}
+.astats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:20px 28px}
+.asc{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:18px;box-shadow:var(--shadow)}
+.asl{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.asv{font-size:28px;font-weight:900;color:var(--p)}
+.asec{padding:0 28px 28px}.asec-t{font-size:16px;font-weight:900;margin-bottom:12px}
+.tw{background:var(--card);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:right;padding:12px 16px;background:var(--pl);color:var(--p);font-weight:700;border-bottom:1px solid var(--border)}
+td{padding:12px 16px;border-bottom:.5px solid var(--border);vertical-align:middle}
+tr:last-child td{border:none}tr:hover td{background:#fafafa}
+.ta{color:var(--p);cursor:pointer;font-size:12px;font-weight:700;margin-left:8px}
+.ta.del{color:#dc2626}.ta:hover{text-decoration:underline}
+.pcov{height:150px;background:linear-gradient(135deg,var(--p),#ff8f5c);position:relative}
+.pawrap{position:absolute;bottom:-44px;right:32px}
+.pav{width:88px;height:88px;border-radius:50%;border:4px solid #fff;overflow:hidden;cursor:pointer;position:relative;box-shadow:0 4px 16px rgba(0,0,0,.15);background:var(--p)}
+.pav img{width:100%;height:100%;object-fit:cover;display:block;border-radius:0}
+.pav-edit{position:absolute;inset:0;background:rgba(0,0,0,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;font-size:20px}
+.pav:hover .pav-edit{opacity:1}
+.pcard{background:var(--card);border:1px solid var(--border);padding:60px 28px 28px;margin-bottom:16px;box-shadow:var(--shadow)}
+.pname{font-size:22px;font-weight:900;margin-bottom:2px}
+.pbio{font-size:14px;color:var(--muted)}
+.pstats{display:flex;gap:20px;margin-top:14px}
+.ps{text-align:center}.ps-v{font-size:20px;font-weight:900;color:var(--p)}.ps-l{font-size:12px;color:var(--muted)}
+.psec{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:20px 24px;margin:0 28px 16px;box-shadow:var(--shadow)}
+.psec h3{font-size:14px;font-weight:900;color:var(--p);margin-bottom:14px}
+.pubcov{height:160px;background:linear-gradient(135deg,var(--p),#ff8f5c);position:relative}
+.pubav-wrap{position:absolute;bottom:-46px;right:32px}
+.pubcard{background:var(--card);border:1px solid var(--border);padding:68px 28px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+.chat-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:var(--p);color:#fff;border:none;border-radius:20px;font-family:'Cairo',sans-serif;font-weight:700;font-size:14px;cursor:pointer;margin-top:14px;transition:all .2s}
+.chat-btn:hover{background:var(--pd);transform:translateY(-1px)}
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
+.mov.on{display:flex}
+.modal{background:var(--card);border-radius:20px;padding:28px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.mt{font-size:17px;font-weight:900}
+.mc{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);line-height:1}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.msglist{max-height:300px;overflow-y:auto;padding:8px 0;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:75%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.6}
+.msg.me{background:var(--p);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg.them{background:var(--bg);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px}
+.msginput{display:flex;gap:8px}
+.msginput input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:20px;font-family:'Cairo',sans-serif;font-size:13px;outline:none}
+.msginput input:focus{border-color:var(--p)}
+.msginput button{padding:10px 18px;background:var(--p);color:#fff;border:none;border-radius:20px;font-family:'Cairo',sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(70px);background:#1a1a1a;color:#fff;padding:12px 26px;border-radius:20px;font-size:14px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1}
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-icon{font-size:60px;margin-bottom:12px}
+.loading{text-align:center;padding:60px 20px;color:var(--muted);font-size:16px}
+@media(max-width:640px){
+  .astats{grid-template-columns:1fr 1fr}.rgrid{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}.grid-wrap{padding:16px}
+  nav{padding:0 14px}.nb{padding:6px 10px;font-size:12px}
+  .dbody{padding:0 16px 40px}.dtitle{font-size:24px}
+}
+</style>
+</head>
+<body>
+<nav id="navbar" style="display:none">
+  <div class="logo" onclick="gp('home')">🍽 وصفاتي</div>
+  <div class="nav-links">
+    <button class="nb on" onclick="gp('home')">الرئيسية</button>
+    <button class="nb" onclick="gp('myrecipes')">وصفاتي</button>
+    <button class="nb" onclick="gp('profile')">حسابي</button>
+    <button class="nb" id="admBtn" style="display:none" onclick="gp('admin')">الأدمن</button>
+    <button class="nb red" onclick="logout()">خروج</button>
+  </div>
+</nav>
+
+<!-- LOGIN -->
+<div class="pg on" id="pg-login">
+  <div class="lbox">
+    <div class="llogo">🍽</div><div class="ltitle">وصفاتي</div>
+    <div class="lsub">شارك أحلى وصفاتك مع العالم</div>
+    <div class="f"><label>الإيميل</label><input type="email" id="lE" placeholder="example@email.com"/></div>
+    <div class="f"><label>كلمة السر</label><input type="password" id="lP" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button class="btn btn-p" onclick="doLogin()">تسجيل الدخول</button>
+    <div id="resendBox" style="display:none;margin-top:12px;background:#fff8f0;border:1px solid #ffd0be;border-radius:10px;padding:14px;text-align:center">
+      <div style="font-size:13px;color:#c44420;margin-bottom:10px">📧 لسه مأكدتش إيميلك؟</div>
+      <button class="btn btn-s" style="width:auto;font-size:13px" onclick="resendVerification()">إعادة إرسال رسالة التأكيد</button>
+    </div>
+    <div class="sw" style="margin-top:10px"><span class="lnk" onclick="gp('forgot')">نسيت كلمة السر؟</span></div>
+    <div class="sw">معندكش حساب؟ <span class="lnk" onclick="gp('register')">سجل دلوقتي</span></div>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div class="pg" id="pg-register">
+  <div class="lbox" style="max-width:460px">
+    <div class="llogo">✨</div><div class="ltitle">حساب جديد</div>
+    <div class="lsub">انضم لمجتمع الطبخ</div>
+    <div class="fgrid">
+      <div class="f"><label>الاسم</label><input type="text" id="rN"/></div>
+      <div class="f"><label>الدولة</label><input type="text" id="rCo" placeholder="مصر"/></div>
+      <div class="f" style="grid-column:1/-1"><label>الإيميل</label><input type="email" id="rE"/></div>
+      <div class="f"><label>رقم الهاتف</label><input type="tel" id="rPh"/></div>
+      <div class="f"><label>كلمة السر</label><input type="password" id="rPs"/></div>
+    </div>
+    <button class="btn btn-p" onclick="doRegister()">إنشاء الحساب</button>
+    <div class="sw">عندك حساب؟ <span class="lnk" onclick="gp('login')">سجل دخول</span></div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div class="pg" id="pg-forgot">
+  <div class="lbox">
+    <div class="llogo">🔑</div>
+    <div class="ltitle">نسيت كلمة السر؟</div>
+    <div class="lsub">هنبعتلك رابط على إيميلك عشان تعمل كلمة سر جديدة</div>
+    <div class="f"><label>الإيميل</label><input type="email" id="forgotEmail" placeholder="example@email.com"/></div>
+    <button class="btn btn-p" onclick="doForgot()">📧 إرسال رابط الاستعادة</button>
+    <div class="sw"><span class="lnk" onclick="gp('login')">← رجوع لتسجيل الدخول</span></div>
+  </div>
+</div>
+
+<!-- RESET PASSWORD -->
+<div class="pg" id="pg-reset">
+  <div class="lbox">
+    <div class="llogo">🔐</div>
+    <div class="ltitle">كلمة سر جديدة</div>
+    <div class="lsub">اكتب كلمة السر الجديدة بتاعتك</div>
+    <div class="f"><label>كلمة السر الجديدة</label><input type="password" id="newPass" placeholder="6 حروف على الأقل"/></div>
+    <div class="f"><label>تأكيد كلمة السر</label><input type="password" id="newPass2" placeholder="اكتبها تاني"/></div>
+    <button class="btn btn-p" onclick="doReset()">💾 حفظ كلمة السر الجديدة</button>
+  </div>
+</div>
+
+<!-- VERIFY EMAIL -->
+<div class="pg" id="pg-verify">
+  <div class="lbox" style="text-align:center">
+    <div class="llogo">📧</div>
+    <div class="ltitle">تأكيد الإيميل</div>
+    <div id="verifyMsg" class="lsub">جاري التأكيد...</div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="pg" id="pg-home">
+  <div class="hero">
+    <h1>اكتشف أحلى الوصفات 🔥</h1>
+    <p>وصفات بيتية من أيدي ناس زيك حول العالم</p>
+    <div class="hsearch">
+      <input type="text" id="srch" placeholder="ابحث عن وصفة أو طاهٍ..." oninput="renderHome()"/>
+      <button onclick="renderHome()">بحث</button>
+    </div>
+  </div>
+  <div class="fbar">
+    <span style="font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap">ترتيب:</span>
+    <div class="chip on" onclick="setF(this,'')">الكل</div>
+    <div class="chip" onclick="setF(this,'most-liked')">الأكثر شهرة</div>
+    <div class="chip" onclick="setF(this,'least-liked')">الأقل شهرة</div>
+    <div class="chip" onclick="setF(this,'newest')">الأحدث</div>
+    <div class="chip" onclick="setF(this,'oldest')">الأقدم</div>
+    <div class="chip" onclick="setF(this,'highest-rated')">الأعلى تقييم</div>
+    <div class="chip" onclick="setF(this,'lowest-rated')">الأقل تقييم</div>
+    <div class="chip" onclick="setF(this,'least-likes')">الأقل لايكات</div>
+  </div>
+  <div class="grid-wrap">
+    <div class="gtitle" id="rcCount">جميع الوصفات</div>
+    <div class="rgrid" id="hGrid"><div class="loading">⏳ جاري التحميل...</div></div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<div class="pg" id="pg-detail"><div id="dInner"></div></div>
+
+<!-- MY RECIPES -->
+<div class="pg" id="pg-myrecipes">
+  <div class="ph">
+    <div><div class="ph-t">وصفاتي الخاصة</div><div class="ph-s" id="myC">0 وصفات</div></div>
+    <button class="btn btn-p" style="width:auto" onclick="openAdd()">+ إضافة وصفة</button>
+  </div>
+  <div class="mlist" id="mList"></div>
+</div>
+
+<!-- ADMIN -->
+<div class="pg" id="pg-admin">
+  <div class="ph"><div><div class="ph-t">🛡 لوحة الأدمن</div><div class="ph-s">إدارة الموقع الكامل</div></div></div>
+  <div class="astats">
+    <div class="asc"><div style="font-size:26px;margin-bottom:6px">🍲</div><div class="asl">الوصفات</div><div class="asv" id="as0">0</div></div>
+    <div class="asc"><div style="font-size:26px;margin-bottom:6px">👤</div><div class="asl">المستخدمين</div><div class="asv" id="as1">0</div></div>
+    <div class="asc"><div style="font-size:26px;margin-bottom:6px">⭐</div><div class="asl">متوسط التقييم</div><div class="asv" id="as2">0</div></div>
+    <div class="asc"><div style="font-size:26px;margin-bottom:6px">❤️</div><div class="asl">إجمالي اللايكات</div><div class="asv" id="as3">0</div></div>
+    <div class="asc"><div style="font-size:26px;margin-bottom:6px">👁️</div><div class="asl">زيارات الموقع</div><div class="asv" id="as4">0</div></div>
+  </div>
+  <div class="asec"><div class="asec-t">📋 الوصفات</div>
+    <div class="tw"><table><thead><tr><th>الوصفة</th><th>صاحبها</th><th>التقييم</th><th>اللايكات</th><th>إجراءات</th></tr></thead><tbody id="at1"></tbody></table></div>
+  </div>
+  <div class="asec" style="margin-top:20px"><div class="asec-t">👥 الحسابات</div>
+    <div class="tw"><table><thead><tr><th>الاسم</th><th>الإيميل</th><th>الدولة</th><th>الوصفات</th><th>إجراءات</th></tr></thead><tbody id="at2"></tbody></table></div>
+  </div>
+</div>
+
+<!-- MY PROFILE -->
+<div class="pg" id="pg-profile">
+  <div class="pcov">
+    <div class="pawrap">
+      <div class="pav" onclick="triggerAvUpload()">
+        <div id="myAvC" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff">أ</div>
+        <div class="pav-edit">📷</div>
+      </div>
+      <input type="file" id="avUp" accept="image/*" style="display:none" onchange="uploadAv(event)"/>
+    </div>
+  </div>
+  <div class="pcard">
+    <div class="pname" id="pName">—</div><div class="pbio" id="pBio">—</div>
+    <div class="pstats">
+      <div class="ps"><div class="ps-v" id="psR">0</div><div class="ps-l">وصفة</div></div>
+      <div class="ps"><div class="ps-v" id="psL">0</div><div class="ps-l">إعجاب</div></div>
+    </div>
+  </div>
+  <div class="psec">
+    <h3>تعديل البيانات</h3>
+    <div class="f"><label>الاسم</label><input type="text" id="eN"/></div>
+    <div class="f"><label>الدولة</label><input type="text" id="eCo"/></div>
+    <div class="f"><label>رقم الهاتف</label><input type="tel" id="ePh"/></div>
+    <button class="btn btn-p" style="width:auto" onclick="saveProf()">💾 حفظ</button>
+  </div>
+  <div class="psec"><h3>❤️ الوصفات المعجبة</h3><div id="lList"></div></div>
+</div>
+
+<!-- PUBLIC PROFILE -->
+<div class="pg" id="pg-pub"><div id="pubIn"></div></div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="mov" id="addMod">
+  <div class="modal">
+    <div class="mhead"><div class="mt" id="addT">إضافة وصفة</div><button class="mc" onclick="closeAdd()">✕</button></div>
+    <div class="f"><label>اسم الوصفة</label><input type="text" id="fT" placeholder="مثلاً: باستا بولونيز"/></div>
+    <div class="f"><label>المكونات</label><textarea id="fI" placeholder="اكتب المكونات..."></textarea></div>
+    <div class="f"><label>طريقة التحضير</label><textarea id="fS" placeholder="اكتب الخطوات..."></textarea></div>
+    <div class="fgrid">
+      <div class="f"><label>وقت التحضير</label><input type="text" id="fTm" placeholder="45 دقيقة"/></div>
+      <div class="f"><label>التصنيف</label>
+        <select id="fCt"><option>إيطالي</option><option>شرقي</option><option>حلويات</option><option>سلطات</option><option>شوربات</option><option>مشويات</option><option>أخرى</option></select>
+      </div>
+    </div>
+    <div class="f"><label>رمز (إيموجي)</label><input type="text" id="fEm" placeholder="🍝" maxlength="2"/></div>
+    <div class="f">
+      <label>صورة الوصفة</label>
+      <div class="uarea" onclick="document.getElementById('rImgUp').click()">
+        <input type="file" id="rImgUp" accept="image/*" style="display:none" onchange="previewRImg(event)"/>
+        <div id="rImgPlaceholder">🖼 اضغط لرفع صورة للوصفة</div>
+        <img id="rImgPreview" style="max-width:100%;max-height:160px;border-radius:8px;margin-top:8px;display:none"/>
+      </div>
+    </div>
+    <div class="f"><label>لون الخلفية</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="cpick">
+        <div onclick="pc(this,'#fff3ee')" style="width:28px;height:28px;border-radius:50%;background:#fff3ee;border:2.5px solid var(--p);cursor:pointer"></div>
+        <div onclick="pc(this,'#e8f5e9')" style="width:28px;height:28px;border-radius:50%;background:#e8f5e9;border:1.5px solid var(--border);cursor:pointer"></div>
+        <div onclick="pc(this,'#e3f2fd')" style="width:28px;height:28px;border-radius:50%;background:#e3f2fd;border:1.5px solid var(--border);cursor:pointer"></div>
+        <div onclick="pc(this,'#fce4ec')" style="width:28px;height:28px;border-radius:50%;background:#fce4ec;border:1.5px solid var(--border);cursor:pointer"></div>
+        <div onclick="pc(this,'#fff8e1')" style="width:28px;height:28px;border-radius:50%;background:#fff8e1;border:1.5px solid var(--border);cursor:pointer"></div>
+        <div onclick="pc(this,'#f3e5f5')" style="width:28px;height:28px;border-radius:50%;background:#f3e5f5;border:1.5px solid var(--border);cursor:pointer"></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
+      <button class="btn btn-s" onclick="closeAdd()">إلغاء</button>
+      <button class="btn btn-p" style="width:auto" onclick="saveR()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT MODAL -->
+<div class="mov" id="chatMod">
+  <div class="modal" style="max-width:440px">
+    <div class="mhead"><div class="mt" id="chatT">محادثة</div><button class="mc" onclick="closeCht()">✕</button></div>
+    <div class="msglist" id="mList2"></div>
+    <div class="msginput">
+      <input type="text" id="mIn" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button onclick="sendMsg()">إرسال</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE PREVIEW MODAL -->
+<div class="mov" id="imgPreviewMod" onclick="closeImgPreview()">
+  <div style="max-width:90vw;max-height:90vh;position:relative" onclick="event.stopPropagation()">
+    <img id="imgPreviewSrc" style="max-width:90vw;max-height:85vh;border-radius:16px;display:block"/>
+    <button onclick="closeImgPreview()" style="position:absolute;top:-14px;left:-14px;width:32px;height:32px;border-radius:50%;background:#1a1a1a;color:#fff;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ======= CONFIG =======
+var API = 'https://recipes-backend-production-6dd5.up.railway.app/api';
+// عداد الزيارات
+(function(){
+  var v = parseInt(localStorage.getItem('site_visits') || '0') + 1;
+  localStorage.setItem('site_visits', v);
+})();
+
+// ======= STATE =======
+var cu = JSON.parse(localStorage.getItem('wcu') || 'null');
+var token = localStorage.getItem('wtoken') || null;
+var curF = '', editId = null, cStars = 5, pColorVal = '#fff3ee', chatTgt = null, upPhoto = null, rImgData = null;
+var COLS = ['#e8572a','#10b981','#3b82f6','#8b5cf6','#f59e0b','#ec4899','#06b6d4','#84cc16'];
+var EMJS = ['🍝','🥗','🍛','🍰','🥘','🍜','🥧','🍲','🍕','🥩','🍱','🥞'];
+
+function gc(s){var h=0;for(var i=0;i<s.length;i++)h+=s.charCodeAt(i);return COLS[h%COLS.length]}
+function toast(m,dur){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},dur||2500)}
+function scu(){localStorage.setItem('wcu',JSON.stringify(cu));localStorage.setItem('wtoken',token||'')}
+
+// ======= API HELPER =======
+async function api(method, path, body, auth) {
+  try {
+    var opts = {
+      method: method,
+      headers: { 'Content-Type': 'application/json' }
+    };
+    if (auth !== false && token) opts.headers['Authorization'] = 'Bearer ' + token;
+    if (body) opts.body = JSON.stringify(body);
+    var res = await fetch(API + path, opts);
+    var data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'حصل خطأ');
+    return data;
+  } catch (e) {
+    throw e;
+  }
+}
+
+// ======= NAV =======
+function gp(n) {
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
+  document.getElementById('pg-'+n).classList.add('on');
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on')});
+  var map={home:0,myrecipes:1,profile:2,admin:3};
+  var btns=document.querySelectorAll('.nb');
+  if(map[n]!==undefined) btns[map[n]].classList.add('on');
+  if(n==='admin') btns[3]&&btns[3].classList.add('on');
+  if(n==='home') renderHome();
+  if(n==='myrecipes') renderMy();
+  if(n==='admin') renderAdmin();
+  if(n==='profile') renderProf();
+  window.scrollTo(0,0);
+}
+
+// ======= AUTH =======
+async function doLogin() {
+  var em = document.getElementById('lE').value.trim();
+  var ps = document.getElementById('lP').value.trim();
+  if (!em || !ps) { toast('⚠️ ادخل الإيميل وكلمة السر'); return; }
+  try {
+    var data = await api('POST', '/auth/login', { email: em, password: ps }, false);
+    cu = data.user; token = data.token; scu();
+    document.getElementById('resendBox').style.display = 'none';
+    afterLogin();
+  } catch(e) {
+    if (e.message && (e.message.includes('تأكد إيميلك') || e.message.includes('verification'))) {
+      toast('📧 ' + e.message, 4000);
+      document.getElementById('resendBox').style.display = 'block';
+    } else {
+      toast('❌ ' + e.message);
+      document.getElementById('resendBox').style.display = 'none';
+    }
+  }
+}
+
+async function resendVerification() {
+  var em = document.getElementById('lE').value.trim();
+  if (!em) { toast('⚠️ ادخل إيميلك الأول'); return; }
+  try {
+    await api('POST', '/auth/resend-verification', { email: em }, false);
+    toast('✅ تم إرسال رسالة التأكيد على إيميلك 📧', 5000);
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+async function doRegister() {
+  var nm = document.getElementById('rN').value.trim();
+  var co = document.getElementById('rCo').value.trim();
+  var em = document.getElementById('rE').value.trim();
+  var ph = document.getElementById('rPh').value.trim();
+  var ps = document.getElementById('rPs').value.trim();
+  if (!nm || !em || !ps) { toast('⚠️ اكمل البيانات'); return; }
+  try {
+    var data = await api('POST', '/auth/register', { name: nm, email: em, password: ps, country: co, phone: ph }, false);
+    // عرض رسالة التأكيد
+    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
+    document.getElementById('pg-login').classList.add('on');
+    document.getElementById('lsub-msg') && (document.getElementById('lsub-msg').textContent = '');
+    toast('✅ تم إنشاء الحساب! تحقق من إيميلك عشان تأكد حسابك 📧', 6000);
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+async function doForgot() {
+  var em = document.getElementById('forgotEmail').value.trim();
+  if (!em) { toast('⚠️ ادخل إيميلك'); return; }
+  try {
+    await api('POST', '/auth/forgot-password', { email: em }, false);
+    toast('✅ لو الإيميل موجود، هتلاقي رسالة في صندوق الوارد 📧', 5000);
+    setTimeout(function(){ gp('login'); }, 3000);
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+var resetTokenVal = null;
+async function doReset() {
+  var np = document.getElementById('newPass').value.trim();
+  var np2 = document.getElementById('newPass2').value.trim();
+  if (!np || !np2) { toast('⚠️ اكمل البيانات'); return; }
+  if (np !== np2) { toast('❌ كلمتي السر مش متطابقتين'); return; }
+  if (np.length < 6) { toast('❌ كلمة السر لازم تكون 6 حروف على الأقل'); return; }
+  try {
+    await api('POST', '/auth/reset-password', { token: resetTokenVal, newPassword: np }, false);
+    toast('✅ تم تغيير كلمة السر! سجل دخول دلوقتي', 4000);
+    setTimeout(function(){ gp('login'); }, 2000);
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+async function checkUrlTokens() {
+  var params = new URLSearchParams(window.location.search);
+  var verifyToken = params.get('verify');
+  var resetToken = params.get('reset');
+
+  if (verifyToken) {
+    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
+    document.getElementById('pg-verify').classList.add('on');
+    try {
+      var data = await api('GET', '/auth/verify?token='+verifyToken, null, false);
+      document.getElementById('verifyMsg').innerHTML = '<span style="color:#15803d;font-size:16px">✅ '+data.message+'<br/><br/><span style="font-size:13px">جاري تسجيل الدخول...</span></span>';
+      cu = data.user; token = data.token; scu();
+      setTimeout(function(){ afterLogin(); }, 2000);
+    } catch(e) {
+      document.getElementById('verifyMsg').innerHTML = '<span style="color:#dc2626">❌ '+e.message+'</span>';
+    }
+    // امسح الـ token من الـ URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+    return true;
+  }
+
+  if (resetToken) {
+    resetTokenVal = resetToken;
+    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
+    document.getElementById('pg-reset').classList.add('on');
+    window.history.replaceState({}, document.title, window.location.pathname);
+    return true;
+  }
+  return false;
+}
+
+function afterLogin() {
+  document.getElementById('navbar').style.display = 'flex';
+  document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
+  gp('home');
+  toast('👋 أهلاً ' + cu.name);
+}
+
+function logout() {
+  cu = null; token = null;
+  localStorage.removeItem('wcu'); localStorage.removeItem('wtoken');
+  document.getElementById('navbar').style.display = 'none';
+  gp('login');
+}
+
+// ======= AVATAR HTML =======
+function avH(u, sz, onclick) {
+  sz = sz || 34;
+  var bg = gc(u.name || 'x');
+  var inner = u.avatar
+    ? '<img src="' + u.avatar + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>'
+    : (u.name || '?')[0];
+  var oc = onclick || "openPub('" + u.id + "')";
+  return '<div class="av" style="width:'+sz+'px;height:'+sz+'px;font-size:'+Math.round(sz*.38)+'px;background:'+bg+'" onclick="'+oc+'" title="'+u.name+'">'+inner+'</div>';
+}
+
+// ======= HOME =======
+async function renderHome() {
+  var srch = document.getElementById('srch') ? document.getElementById('srch').value.trim() : '';
+  var url = '/recipes?sort=' + curF;
+  if (srch) url += '&search=' + encodeURIComponent(srch);
+  document.getElementById('hGrid').innerHTML = '<div class="loading">⏳ جاري التحميل...</div>';
+  try {
+    var recipes = await api('GET', url, null, !!token);
+    document.getElementById('rcCount').textContent = recipes.length + ' وصفة';
+    document.getElementById('hGrid').innerHTML = recipes.length
+      ? recipes.map(rCard).join('')
+      : '<div class="empty"><div class="empty-icon">🔍</div><p>مفيش نتائج</p></div>';
+  } catch(e) {
+    document.getElementById('hGrid').innerHTML = '<div class="empty"><div class="empty-icon">❌</div><p>تعذر التحميل</p></div>';
+  }
+}
+
+function setF(el, f) {
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on')});
+  el.classList.add('on'); curF = f; renderHome();
+}
+
+function rCard(r) {
+  var uName = r.author_name || 'مجهول';
+  var uId = r.author_id;
+  var uAvatar = r.author_avatar;
+  var liked = r.user_like === 'like';
+  var disliked = r.user_like === 'dislike';
+  var stars = '★'.repeat(Math.round(r.rating||0)) + '☆'.repeat(5-Math.round(r.rating||0));
+  var thumbContent = r.image
+    ? '<img src="'+r.image+'" style="width:100%;height:100%;object-fit:cover"/>'
+    : '<span style="font-size:64px">'+r.emoji+'</span>';
+  var uObj = {id: uId, name: uName, avatar: uAvatar};
+  return '<div class="rcard">'+
+    '<div class="rthumb" style="background:'+(r.bg_color||'#fff3ee')+'" onclick="openDetail(\''+r.id+'\')">'+
+      thumbContent+'<div class="rcbadge">'+r.category+'</div>'+
+    '</div>'+
+    '<div class="rauthor">'+avH(uObj,34)+
+      '<div><div class="aname">'+uName+'</div><div class="adate">'+(r.created_at||'').substring(0,10)+'</div></div>'+
+    '</div>'+
+    '<div class="rbody" onclick="openDetail(\''+r.id+'\')">'+
+      '<div class="rtitle">'+r.title+'</div>'+
+      '<div class="rstars">'+stars+' <span style="font-size:11px;color:var(--muted)">('+( r.comment_count||0)+' تقييم)</span></div>'+
+      '<div class="rmeta"><span>⏱ '+r.cook_time+'</span><span>❤️ '+r.likes+'</span><span>👎 '+(r.dislikes||0)+'</span></div>'+
+    '</div>'+
+    '<div class="ract">'+
+      '<button class="lbtn '+(liked?'liked':'')+'" onclick="doLike(\''+r.id+'\',\'like\',this)">'+(liked?'❤️':'🤍')+' '+r.likes+'</button>'+
+      '<button class="dlbtn '+(disliked?'disliked':'')+'" onclick="doLike(\''+r.id+'\',\'dislike\',this)">👎 '+(r.dislikes||0)+'</button>'+
+      '<button class="obtn" onclick="openDetail(\''+r.id+'\')">تفاصيل ←</button>'+
+    '</div>'+
+  '</div>';
+}
+
+async function doLike(id, type, btn) {
+  if (!cu) { toast('سجل دخول أول'); return; }
+  try {
+    var res = await api('POST', '/recipes/'+id+'/like', {type: type});
+    // حدّث الأرقام في الكارد مباشرة بدون reload
+    var card = btn.closest('.rcard');
+    if (!card) return;
+    var lbtn = card.querySelector('.lbtn');
+    var dlbtn = card.querySelector('.dlbtn');
+    if (res.action === 'removed') {
+      btn.classList.remove('liked','disliked');
+      btn.innerHTML = (type==='like'?'🤍':'👎') + ' ' + (type==='like'?res.likes:res.dislikes);
+    } else {
+      if (type === 'like') {
+        lbtn.classList.add('liked'); lbtn.innerHTML = '❤️ ' + res.likes;
+        dlbtn.classList.remove('disliked'); dlbtn.innerHTML = '👎 ' + res.dislikes;
+      } else {
+        dlbtn.classList.add('disliked'); dlbtn.innerHTML = '👎 ' + res.dislikes;
+        lbtn.classList.remove('liked'); lbtn.innerHTML = '🤍 ' + res.likes;
+      }
+    }
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+// ======= DETAIL =======
+async function openDetail(id) {
+  gp('detail');
+  document.getElementById('dInner').innerHTML = '<div class="loading" style="padding:100px">⏳ جاري التحميل...</div>';
+  try {
+    var r = await api('GET', '/recipes/'+id, null, !!token);
+    var uObj = {id: r.author_id, name: r.author_name, avatar: r.author_avatar};
+    var liked = r.user_like === 'like';
+    var disliked = r.user_like === 'dislike';
+    var stars = '★'.repeat(Math.round(r.rating||0))+'☆'.repeat(5-Math.round(r.rating||0));
+    var cHtml = r.comments && r.comments.length ? r.comments.map(function(c){
+      var cuObj={id:c.user_id,name:c.user_name,avatar:c.user_avatar};
+      return '<div class="ci">'+
+        avH(cuObj,40,"openPub('"+c.user_id+"')")+
+        '<div class="cbody">'+
+          '<div class="cname">'+c.user_name+'</div>'+
+          '<div class="cstars">'+'★'.repeat(c.stars)+'☆'.repeat(5-c.stars)+'</div>'+
+          '<div class="ctext">'+c.text+'</div>'+
+          (c.photo?'<img src="'+c.photo+'" class="cphoto"/>' :'')+
+          '<div class="cdate">'+(c.created_at||'').substring(0,10)+'</div>'+
+        '</div></div>';
+    }).join('') : '<p style="color:var(--muted);font-size:14px">لا توجد تعليقات بعد. كن أول من يعلق!</p>';
+
+    var heroContent = r.image
+      ? '<img src="'+r.image+'" style="width:100%;height:100%;object-fit:cover"/>'
+      : '<span>'+r.emoji+'</span>';
+
+    document.getElementById('dInner').innerHTML =
+      '<div>'+
+      '<div class="dthumb" style="background:'+(r.bg_color||'#fff3ee')+'">'+
+        heroContent+
+        '<button onclick="gp(\'home\')" style="position:absolute;top:18px;right:18px;padding:8px 18px;border:none;border-radius:20px;background:rgba(255,255,255,.85);font-family:Cairo,sans-serif;font-weight:700;font-size:13px;cursor:pointer">← رجوع</button>'+
+      '</div>'+
+      '<div class="dbody">'+
+        '<h1 class="dtitle">'+r.title+'</h1>'+
+        '<div class="dmeta">'+
+          '<div class="dauthor-chip" onclick="openPub(\''+r.author_id+'\')">'+avH(uObj,32)+
+            '<div><div style="font-size:13px;font-weight:700">'+r.author_name+'</div>'+
+            '<div style="font-size:11px;color:var(--muted)">'+r.author_country+'</div></div>'+
+          '</div>'+
+          '<div class="dstat">⭐ <span style="color:#f59e0b">'+stars+'</span> '+(r.rating||0)+'</div>'+
+          '<div class="dstat">❤️ '+r.likes+' إعجاب</div>'+
+          '<div class="dstat">👎 '+(r.dislikes||0)+'</div>'+
+          '<div class="dstat">⏱ '+r.cook_time+'</div>'+
+        '</div>'+
+        '<div class="dactions">'+
+          '<button class="lbtn '+(liked?'liked':'')+'" style="font-size:14px;padding:10px 22px" onclick="doLikeDetail(\''+r.id+'\',\'like\')">'+
+            (liked?'❤️':'🤍')+' إعجاب ('+r.likes+')</button>'+
+          '<button class="dlbtn '+(disliked?'disliked':'')+'" style="font-size:14px;padding:10px 22px" onclick="doLikeDetail(\''+r.id+'\',\'dislike\')">'+
+            '👎 ('+(r.dislikes||0)+')</button>'+
+        '</div>'+
+        '<div class="dsec"><h3>🧾 المكونات</h3><p style="white-space:pre-line">'+r.ingredients+'</p></div>'+
+        '<div class="dsec"><h3>👨‍🍳 طريقة التحضير</h3><p style="white-space:pre-line">'+r.steps+'</p></div>'+
+        '<div class="cbox">'+
+          '<h3>💬 التعليقات والتقييمات ('+(r.comments?r.comments.length:0)+')</h3>'+
+          '<div id="cArea">'+cHtml+'</div>'+
+          '<div class="addcomm">'+
+            '<h4>أضف تعليقك وتقييمك:</h4>'+
+            '<div style="font-size:13px;color:var(--muted);margin-bottom:8px">تقييمك من 5 نجوم:</div>'+
+            '<div class="sp-row" id="spRow">'+
+              [1,2,3,4,5].map(function(n){return '<div class="sp on" onclick="pickStar('+n+')" data-n="'+n+'">⭐</div>'}).join('')+
+            '</div>'+
+            '<div class="f"><textarea id="cTxt" placeholder="شاركنا رأيك..."></textarea></div>'+
+            '<div class="uarea" onclick="document.getElementById(\'phUp\').click()">'+
+              '<input type="file" id="phUp" accept="image/*" style="display:none" onchange="prevPhoto(event)"/>'+
+              '<div>📷 ارفع صورتك بعد ما عملت الوصفة</div>'+
+              '<img id="phPrev" class="prev" style="display:none"/>'+
+            '</div>'+
+            '<button class="btn btn-p" style="width:auto" onclick="submitC(\''+r.id+'\')">إرسال التعليق ✓</button>'+
+          '</div>'+
+        '</div>'+
+      '</div></div>';
+    cStars = 5; upPhoto = null;
+  } catch(e) {
+    document.getElementById('dInner').innerHTML = '<div class="empty"><div class="empty-icon">❌</div><p>تعذر تحميل الوصفة</p></div>';
+  }
+}
+
+async function doLikeDetail(id, type) {
+  if (!cu) { toast('سجل دخول أول'); return; }
+  try {
+    var res = await api('POST', '/recipes/'+id+'/like', {type: type});
+    // حدّث الأزرار مباشرة
+    var lbtn = document.querySelector('.dactions .lbtn');
+    var dlbtn = document.querySelector('.dactions .dlbtn');
+    if (lbtn && dlbtn) {
+      if (type === 'like') {
+        var liked = lbtn.classList.contains('liked');
+        lbtn.classList.toggle('liked', !liked);
+        lbtn.innerHTML = (!liked?'❤️':'🤍') + ' إعجاب (' + res.likes + ')';
+        dlbtn.classList.remove('disliked');
+        dlbtn.innerHTML = '👎 (' + res.dislikes + ')';
+      } else {
+        var disliked = dlbtn.classList.contains('disliked');
+        dlbtn.classList.toggle('disliked', !disliked);
+        dlbtn.innerHTML = '👎 (' + res.dislikes + ')';
+        lbtn.classList.remove('liked');
+        lbtn.innerHTML = '🤍 إعجاب (' + res.likes + ')';
+      }
+    }
+    toast(type==='like'? '❤️ أعجبتك الوصفة' : '👎 تم');
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+function pickStar(n) {
+  cStars = n;
+  document.querySelectorAll('#spRow .sp').forEach(function(el,i){el.classList.toggle('on',i<n)});
+}
+function prevPhoto(e) {
+  var f = e.target.files[0]; if (!f) return;
+  var rd = new FileReader();
+  rd.onload = function(ev) {
+    var img2 = new Image();
+    img2.onload = function() {
+      var canvas = document.createElement('canvas');
+      var MAX = 600;
+      var w = img2.width, h = img2.height;
+      if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+      if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img2, 0, 0, w, h);
+      upPhoto = canvas.toDataURL('image/jpeg', 0.65);
+      var img = document.getElementById('phPrev');
+      img.src = upPhoto; img.style.display = 'block';
+    };
+    img2.src = ev.target.result;
+  };
+  rd.readAsDataURL(f);
+}
+async function submitC(rid) {
+  if (!cu) { toast('سجل دخول أول'); return; }
+  var txt = document.getElementById('cTxt').value.trim();
+  if (!txt) { toast('اكتب تعليقك'); return; }
+  try {
+    await api('POST', '/recipes/'+rid+'/comments', {text: txt, stars: cStars, photo: upPhoto||null});
+    toast('✅ شكراً على تعليقك!');
+    // أضف التعليق الجديد مباشرة بدون reload
+    var cArea = document.getElementById('cArea');
+    var uObj = {id: cu.id, name: cu.name, avatar: cu.avatar};
+    var newC = '<div class="ci">'+
+      avH(uObj, 40, "openPub('"+cu.id+"')")+
+      '<div class="cbody">'+
+        '<div class="cname">'+cu.name+'</div>'+
+        '<div class="cstars">'+'★'.repeat(cStars)+'☆'.repeat(5-cStars)+'</div>'+
+        '<div class="ctext">'+txt+'</div>'+
+        (upPhoto?'<img src="'+upPhoto+'" class="cphoto"/>' :'')+
+        '<div class="cdate">الآن</div>'+
+      '</div></div>';
+    // امسح رسالة "لا توجد تعليقات" لو موجودة
+    var empty = cArea.querySelector('p');
+    if (empty) cArea.innerHTML = '';
+    cArea.insertAdjacentHTML('afterbegin', newC);
+    // صفّر الفورم
+    document.getElementById('cTxt').value = '';
+    upPhoto = null;
+    var phPrev = document.getElementById('phPrev');
+    if (phPrev) phPrev.style.display = 'none';
+    // حدّث عدد التعليقات في العنوان
+    var cboxTitle = document.querySelector('.cbox h3');
+    if (cboxTitle) {
+      var count = cArea.querySelectorAll('.ci').length;
+      cboxTitle.textContent = '💬 التعليقات والتقييمات (' + count + ')';
+    }
+    cStars = 5;
+    document.querySelectorAll('#spRow .sp').forEach(function(el,i){el.classList.toggle('on',true)});
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+// ======= MY RECIPES =======
+async function renderMy() {
+  if (!cu) return;
+  document.getElementById('mList').innerHTML = '<div class="loading">⏳ جاري التحميل...</div>';
+  try {
+    var recipes = await api('GET', '/recipes');
+    var mine = recipes.filter(function(r){ return r.author_id === cu.id; });
+    document.getElementById('myC').textContent = mine.length + ' وصفات';
+    if (!mine.length) {
+      document.getElementById('mList').innerHTML = '<div class="empty"><div class="empty-icon">🍳</div><p>لسه معندكش وصفات<br/>ابدأ بإضافة أول وصفة!</p></div>';
+      return;
+    }
+    document.getElementById('mList').innerHTML = mine.map(function(r){
+      return '<div class="mi">'+
+        '<div class="mico">'+(r.image?'<img src="'+r.image+'" style="width:100%;height:100%;object-fit:cover;border-radius:12px"/>':r.emoji)+'</div>'+
+        '<div class="minfo">'+
+          '<div class="mname">'+r.title+'</div>'+
+          '<div class="mmeta"><span>❤️ '+r.likes+'</span><span>⭐ '+(r.rating||0)+'</span><span>💬 '+(r.comment_count||0)+'</span><span>⏱ '+r.cook_time+'</span></div>'+
+          '<span class="badge bg">منشورة ✓</span>'+
+        '</div>'+
+        '<div class="ibtns">'+
+          '<button class="ibtn" onclick="editR(\''+r.id+'\')">✏️</button>'+
+          '<button class="ibtn del" onclick="delR(\''+r.id+'\')">🗑</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  } catch(e) { document.getElementById('mList').innerHTML = '<div class="empty"><div class="empty-icon">❌</div><p>تعذر التحميل</p></div>'; }
+}
+
+var pColorVal = '#fff3ee';
+function previewRImg(e) {
+  var f = e.target.files[0]; if (!f) return;
+  var rd = new FileReader();
+  rd.onload = function(ev) {
+    // ضغط الصورة قبل الحفظ
+    var img2 = new Image();
+    img2.onload = function() {
+      var canvas = document.createElement('canvas');
+      var MAX = 800;
+      var w = img2.width, h = img2.height;
+      if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+      if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img2, 0, 0, w, h);
+      rImgData = canvas.toDataURL('image/jpeg', 0.7);
+      var prev = document.getElementById('rImgPreview');
+      prev.src = rImgData; prev.style.display = 'block';
+      document.getElementById('rImgPlaceholder').textContent = '✅ تم رفع الصورة';
+    };
+    img2.src = ev.target.result;
+  };
+  rd.readAsDataURL(f);
+}
+function openAdd() {
+  editId = null; rImgData = null;
+  document.getElementById('addT').textContent = 'إضافة وصفة';
+  ['fT','fI','fS','fTm','fEm'].forEach(function(i){document.getElementById(i).value=''});
+  document.getElementById('rImgPreview').style.display = 'none';
+  document.getElementById('rImgPlaceholder').textContent = '🖼 اضغط لرفع صورة للوصفة';
+  document.getElementById('rImgUp').value = '';
+  pColorVal = '#fff3ee';
+  document.getElementById('addMod').classList.add('on');
+}
+function closeAdd() { document.getElementById('addMod').classList.remove('on'); }
+function pc(el, c) {
+  pColorVal = c;
+  document.querySelectorAll('#cpick div').forEach(function(d){d.style.border='1.5px solid var(--border)'});
+  el.style.border = '2.5px solid var(--p)';
+}
+async function editR(id) {
+  try {
+    var r = await api('GET', '/recipes/'+id, null, false);
+    editId = id; rImgData = r.image || null;
+    document.getElementById('addT').textContent = 'تعديل الوصفة';
+    document.getElementById('fT').value = r.title;
+    document.getElementById('fI').value = r.ingredients;
+    document.getElementById('fS').value = r.steps;
+    document.getElementById('fTm').value = r.cook_time;
+    document.getElementById('fEm').value = r.emoji || '';
+    document.getElementById('fCt').value = r.category;
+    var img = document.getElementById('rImgPreview');
+    if (r.image) { img.src = r.image; img.style.display = 'block'; document.getElementById('rImgPlaceholder').textContent = '✅ صورة موجودة'; }
+    else { img.style.display = 'none'; document.getElementById('rImgPlaceholder').textContent = '🖼 اضغط لرفع صورة'; }
+    pColorVal = r.bg_color || '#fff3ee';
+    document.getElementById('addMod').classList.add('on');
+  } catch(e) { toast('❌ ' + e.message); }
+}
+async function delR(id) {
+  if (!confirm('هتحذف الوصفة؟')) return;
+  try {
+    await api('DELETE', '/recipes/'+id);
+    toast('🗑 تم الحذف'); renderMy();
+  } catch(e) { toast('❌ ' + e.message); }
+}
+async function saveR() {
+  var title = document.getElementById('fT').value.trim();
+  var ing = document.getElementById('fI').value.trim();
+  var steps = document.getElementById('fS').value.trim();
+  var time = document.getElementById('fTm').value.trim();
+  var emoji = document.getElementById('fEm').value.trim() || EMJS[Math.floor(Math.random()*EMJS.length)];
+  var cat = document.getElementById('fCt').value;
+  if (!title || !ing || !steps) { toast('⚠️ اكمل البيانات'); return; }
+  var body = { title: title, ingredients: ing, steps: steps, cook_time: time||'30 دقيقة', emoji: emoji, category: cat, bg_color: pColorVal, image: rImgData||null };
+  try {
+    if (editId) {
+      await api('PUT', '/recipes/'+editId, body);
+      toast('✅ تم التعديل');
+    } else {
+      await api('POST', '/recipes', body);
+      toast('✅ تمت الإضافة وظهرت في الرئيسية!');
+    }
+    closeAdd(); renderMy();
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+// ======= ADMIN =======
+async function renderAdmin() {
+  try {
+    var recipes = await api('GET', '/recipes');
+    var users = await api('GET', '/users');
+    document.getElementById('as0').textContent = recipes.length;
+    document.getElementById('as1').textContent = users.length;
+    var ratedR = recipes.filter(function(r){ return r.rating && r.rating > 0; });
+    var avgR = ratedR.length > 0 ? (ratedR.reduce(function(a,r){ return a + parseFloat(r.rating||0); }, 0) / ratedR.length).toFixed(1) : '0';
+    document.getElementById('as2').textContent = avgR + ' ★';
+    document.getElementById('as3').textContent = recipes.reduce(function(a,r){return a+r.likes},0);
+    document.getElementById('as4').textContent = localStorage.getItem('site_visits') || '0';
+    document.getElementById('at1').innerHTML = recipes.map(function(r){
+      return '<tr><td>'+r.emoji+' '+r.title+'</td><td>'+r.author_name+'</td><td>⭐'+(r.rating||0)+'</td><td>❤️'+r.likes+'</td>'+
+        '<td><span class="ta" onclick="editR(\''+r.id+'\');document.getElementById(\'addMod\').classList.add(\'on\')">تعديل</span>'+
+        '<span class="ta del" onclick="aDelR(\''+r.id+'\')">حذف</span></td></tr>';
+    }).join('');
+    document.getElementById('at2').innerHTML = users.map(function(u){
+      return '<tr><td>'+u.name+'</td><td>'+u.email+'</td><td>'+(u.country||'—')+'</td><td>'+(u.recipe_count||0)+'</td>'+
+        '<td><span class="ta del" onclick="aDelU(\''+u.id+'\')">حذف</span></td></tr>';
+    }).join('');
+  } catch(e) { toast('❌ ' + e.message); }
+}
+async function aDelR(id) {
+  if (!confirm('حذف الوصفة؟')) return;
+  try { await api('DELETE', '/recipes/'+id); toast('🗑 تم'); renderAdmin(); }
+  catch(e) { toast('❌ ' + e.message); }
+}
+async function aDelU(id) {
+  if (!confirm('حذف الحساب وكل وصفاته؟')) return;
+  try { await api('DELETE', '/users/'+id); toast('🗑 تم حذف الحساب'); renderAdmin(); }
+  catch(e) { toast('❌ ' + e.message); }
+}
+
+// ======= PROFILE =======
+async function renderProf() {
+  if (!cu) return;
+  try {
+    var u = await api('GET', '/auth/me');
+    // حدّث الـ cu بالبيانات الجديدة من الـ API
+    cu.avatar = u.avatar; cu.name = u.name; cu.country = u.country; cu.phone = u.phone;
+    localStorage.setItem('wcu', JSON.stringify(cu));
+    // عرض الصورة
+    var ac = document.getElementById('myAvC');
+    if (u.avatar) {
+      ac.innerHTML = '<img src="'+u.avatar+'" style="width:100%;height:100%;object-fit:cover;display:block;"/>';
+    } else {
+      ac.innerHTML = '<span style="font-size:32px;font-weight:900;color:#fff">'+(u.name||'?')[0]+'</span>';
+    }
+    document.getElementById('pName').textContent = u.name;
+    document.getElementById('pBio').textContent = '🌍 ' + (u.country||'—');
+    var recipes = await api('GET', '/recipes');
+    var mine = recipes.filter(function(r){return r.author_id===cu.id});
+    var liked = recipes.filter(function(r){return r.user_like==='like'});
+    document.getElementById('psR').textContent = mine.length;
+    document.getElementById('psL').textContent = liked.length;
+    document.getElementById('eN').value = u.name;
+    document.getElementById('eCo').value = u.country||'';
+    document.getElementById('ePh').value = u.phone||'';
+    document.getElementById('lList').innerHTML = liked.length
+      ? liked.map(function(r){return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="openDetail(\''+r.id+'\')"><span style="font-size:22px">'+r.emoji+'</span><span style="font-size:13px;font-weight:700">'+r.title+'</span><span style="font-size:12px;color:var(--muted);margin-right:auto">❤️ '+r.likes+'</span></div>'}).join('')
+      : '<p style="font-size:13px;color:var(--muted)">لم تعجبك أي وصفة بعد</p>';
+  } catch(e) { toast('❌ ' + e.message); }
+}
+function triggerAvUpload() {
+  // إعادة إنشاء الـ input عشان يقبل نفس الصورة تاني
+  var old = document.getElementById('avUp');
+  if (old) old.remove();
+  var inp = document.createElement('input');
+  inp.type = 'file'; inp.id = 'avUp'; inp.accept = 'image/*';
+  inp.style.display = 'none';
+  inp.onchange = function(e){ uploadAv(e); };
+  document.body.appendChild(inp);
+  inp.click();
+}
+
+function uploadAv(e) {
+  var f = e.target.files[0]; if (!f) return;
+  var rd = new FileReader();
+  rd.onload = function(ev) {
+    var img2 = new Image();
+    img2.onload = async function() {
+      // اقص الصورة عشان تبقى مربعة أولاً
+      var size = Math.min(img2.width, img2.height);
+      var canvas = document.createElement('canvas');
+      canvas.width = 300; canvas.height = 300;
+      var ctx = canvas.getContext('2d');
+      var sx = (img2.width - size) / 2;
+      var sy = (img2.height - size) / 2;
+      ctx.drawImage(img2, sx, sy, size, size, 0, 0, 300, 300);
+      var compressed = canvas.toDataURL('image/jpeg', 0.85);
+      try {
+        await api('PUT', '/users/me', {
+          name: cu.name, country: cu.country||'', phone: cu.phone||'', avatar: compressed
+        });
+        cu.avatar = compressed;
+        localStorage.setItem('wcu', JSON.stringify(cu));
+        // حدّث الـ UI مباشرة
+        var ac = document.getElementById('myAvC');
+        ac.innerHTML = '<img src="'+compressed+'" style="width:100%;height:100%;object-fit:cover;display:block;"/>';
+        toast('✅ تم تحديث الصورة');
+      } catch(err) { toast('❌ ' + err.message); }
+    };
+    img2.src = ev.target.result;
+  };
+  rd.readAsDataURL(f);
+}
+async function saveProf() {
+  var nm = document.getElementById('eN').value.trim();
+  var co = document.getElementById('eCo').value.trim();
+  var ph = document.getElementById('ePh').value.trim();
+  if (!nm) { toast('الاسم مطلوب'); return; }
+  try {
+    await api('PUT', '/users/me', { name: nm, country: co, phone: ph, avatar: cu.avatar||null });
+    cu.name = nm; cu.country = co; cu.phone = ph;
+    localStorage.setItem('wcu', JSON.stringify(cu));
+    renderProf(); toast('✅ تم الحفظ');
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+// ======= PUBLIC PROFILE =======
+async function openPub(uid) {
+  gp('pub');
+  document.getElementById('pubIn').innerHTML = '<div class="loading" style="padding:100px">⏳ جاري التحميل...</div>';
+  try {
+    var u = await api('GET', '/users/'+uid, null, false);
+    var recipes = await api('GET', '/recipes');
+    var mine = recipes.filter(function(r){return r.author_id===uid});
+    var avS = 'width:88px;height:88px;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff;background:'+gc(u.name)+';overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)';
+    var avI = u.avatar ? '<img src="'+u.avatar+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;cursor:pointer" onclick="openImgPreview(\''+u.avatar+'\')" title="اضغط لتكبير الصورة"/>':u.name[0];
+    var chatHtml = cu && cu.id !== uid ? '<button class="chat-btn" onclick="openChat(\''+uid+'\',\''+u.name+'\')">💬 مراسلة '+u.name+'</button>' : '';
+    document.getElementById('pubIn').innerHTML =
+      '<div style="max-width:900px;margin:0 auto;padding-bottom:60px">'+
+      '<div class="pubcov">'+
+        '<div class="pubav-wrap"><div style="'+avS+'">'+avI+'</div></div>'+
+        '<button onclick="gp(\'home\')" style="position:absolute;top:14px;right:14px;padding:7px 16px;border:none;border-radius:20px;background:rgba(255,255,255,.85);font-family:Cairo,sans-serif;font-weight:700;font-size:13px;cursor:pointer">← رجوع</button>'+
+      '</div>'+
+      '<div class="pubcard">'+
+        '<div style="font-size:22px;font-weight:900;margin-bottom:4px">'+u.name+'</div>'+
+        '<div style="font-size:14px;color:var(--muted)">🌍 '+(u.country||'—')+'</div>'+
+        '<div style="display:flex;gap:20px;margin-top:14px">'+
+          '<div class="ps"><div class="ps-v">'+(u.recipe_count||0)+'</div><div class="ps-l">وصفة</div></div>'+
+          '<div class="ps"><div class="ps-v">'+(u.total_likes||0)+'</div><div class="ps-l">إعجاب</div></div>'+
+        '</div>'+chatHtml+
+      '</div>'+
+      '<div style="padding:0 28px">'+
+        '<div style="font-size:17px;font-weight:900;margin-bottom:18px">وصفات '+u.name+'</div>'+
+        (mine.length?'<div class="rgrid">'+mine.map(rCard).join('')+'</div>':'<div class="empty"><div class="empty-icon">🍳</div><p>لا توجد وصفات بعد</p></div>')+
+      '</div></div>';
+  } catch(e) {
+    document.getElementById('pubIn').innerHTML = '<div class="empty"><div class="empty-icon">❌</div><p>تعذر تحميل الصفحة</p></div>';
+  }
+}
+
+// ======= CHAT =======
+async function openChat(uid, name) {
+  chatTgt = uid;
+  document.getElementById('chatT').textContent = '💬 محادثة مع ' + name;
+  await renderCht();
+  document.getElementById('chatMod').classList.add('on');
+}
+function closeCht() { document.getElementById('chatMod').classList.remove('on'); chatTgt = null; }
+
+async function renderCht() {
+  if (!chatTgt) return;
+  try {
+    var msgs = await api('GET', '/messages/'+chatTgt);
+    document.getElementById('mList2').innerHTML = msgs.length
+      ? msgs.map(function(m){
+          var isMe = m.from_id === cu.id;
+          return '<div class="msg '+(isMe?'me':'them')+'">'+
+            '<div style="font-size:11px;opacity:.7;margin-bottom:3px">'+(isMe?'أنت':m.from_name)+'</div>'+
+            m.text+
+            '<div style="font-size:10px;opacity:.6;margin-top:4px;text-align:'+(isMe?'left':'right')+'">'+(m.created_at||'').substring(11,16)+'</div>'+
+          '</div>';
+        }).join('')
+      : '<div style="text-align:center;color:var(--muted);font-size:13px;padding:20px">ابدأ المحادثة! 👋</div>';
+    var ml = document.getElementById('mList2');
+    ml.scrollTop = ml.scrollHeight;
+  } catch(e) { console.error('Chat error:', e); }
+}
+
+async function sendMsg() {
+  if (!cu || !chatTgt) return;
+  var txt = document.getElementById('mIn').value.trim();
+  if (!txt) return;
+  try {
+    var res = await api('POST', '/messages/'+chatTgt, {text: txt});
+    document.getElementById('mIn').value = '';
+    // أضف الرسالة مباشرة بدون reload
+    var ml = document.getElementById('mList2');
+    var newMsg = '<div class="msg me">'+
+      '<div style="font-size:11px;opacity:.7;margin-bottom:3px">أنت</div>'+
+      txt+
+      '<div style="font-size:10px;opacity:.6;margin-top:4px;text-align:left">الآن</div>'+
+    '</div>';
+    // لو كان فيه رسالة "ابدأ المحادثة" امسحها
+    var empty = ml.querySelector('div[style*="text-align:center"]');
+    if (empty) ml.innerHTML = '';
+    ml.insertAdjacentHTML('beforeend', newMsg);
+    ml.scrollTop = ml.scrollHeight;
+  } catch(e) { toast('❌ ' + e.message); }
+}
+
+// ======= IMAGE PREVIEW =======
+function openImgPreview(src) {
+  document.getElementById('imgPreviewSrc').src = src;
+  document.getElementById('imgPreviewMod').classList.add('on');
+}
+function closeImgPreview() {
+  document.getElementById('imgPreviewMod').classList.remove('on');
+}
+
+// ======= INIT =======
+async function init() {
+  var handled = await checkUrlTokens();
+  if (!handled && cu && token) {
+    afterLogin();
+  }
+}
+init();
+</script>
+</body>
+</html>
