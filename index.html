@@ -402,10 +402,9 @@ tr:last-child td{border:none}tr:hover td{background:#fafafa}
 <script>
 // ======= CONFIG =======
 var API = 'https://recipes-backend-production-6dd5.up.railway.app/api';
-// عداد الزيارات
+// عداد الزيارات الحقيقي
 (function(){
-  var v = parseInt(localStorage.getItem('site_visits') || '0') + 1;
-  localStorage.setItem('site_visits', v);
+  fetch(API + '/visits', { method: 'POST' }).catch(function(){});
 })();
 
 // ======= STATE =======
@@ -951,7 +950,11 @@ async function renderAdmin() {
     var avgR = ratedR.length > 0 ? (ratedR.reduce(function(a,r){ return a + parseFloat(r.rating||0); }, 0) / ratedR.length).toFixed(1) : '0';
     document.getElementById('as2').textContent = avgR + ' ★';
     document.getElementById('as3').textContent = recipes.reduce(function(a,r){return a+r.likes},0);
-    document.getElementById('as4').textContent = localStorage.getItem('site_visits') || '0';
+    try {
+      var vRes = await fetch(API + '/visits/count');
+      var vData = await vRes.json();
+      document.getElementById('as4').textContent = vData.total.toLocaleString('ar-EG');
+    } catch(e) { document.getElementById('as4').textContent = '—'; }
     document.getElementById('at1').innerHTML = recipes.map(function(r){
       return '<tr><td>'+r.emoji+' '+r.title+'</td><td>'+r.author_name+'</td><td>⭐'+(r.rating||0)+'</td><td>❤️'+r.likes+'</td>'+
         '<td><span class="ta" onclick="editR(\''+r.id+'\');document.getElementById(\'addMod\').classList.add(\'on\')">تعديل</span>'+
