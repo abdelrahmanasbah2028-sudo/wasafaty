@@ -297,7 +297,8 @@ tr:last-child td{border:none}tr:hover td{background:#fafafa}
     <div class="asc"><div style="font-size:26px;margin-bottom:6px">👤</div><div class="asl">المستخدمين</div><div class="asv" id="as1">0</div></div>
     <div class="asc"><div style="font-size:26px;margin-bottom:6px">⭐</div><div class="asl">متوسط التقييم</div><div class="asv" id="as2">0</div></div>
     <div class="asc"><div style="font-size:26px;margin-bottom:6px">❤️</div><div class="asl">إجمالي اللايكات</div><div class="asv" id="as3">0</div></div>
-    <div class="asc"><div style="font-size:26px;margin-bottom:6px">👁️</div><div class="asl">زيارات الموقع</div><div class="asv" id="as4">0</div></div>
+    <div class="asc"><div style="font-size:26px;margin-bottom:6px">👁️</div><div class="asl">مشاهدات الصفحة</div><div class="asv" id="as4">0</div></div>
+    <div class="asc"><div style="font-size:26px;margin-bottom:6px">🧑‍💻</div><div class="asl">زوار فريدون</div><div class="asv" id="as5">0</div></div>
   </div>
   <div class="asec"><div class="asec-t">📋 الوصفات</div>
     <div class="tw"><table><thead><tr><th>الوصفة</th><th>صاحبها</th><th>التقييم</th><th>اللايكات</th><th>إجراءات</th></tr></thead><tbody id="at1"></tbody></table></div>
@@ -402,8 +403,9 @@ tr:last-child td{border:none}tr:hover td{background:#fafafa}
 <script>
 // ======= CONFIG =======
 var API = 'https://wasafaty-backend-production.up.railway.app/api';
-// عداد الزيارات الحقيقي
+// عداد الزيارات - page views + unique visitors
 (function(){
+  // page views - كل مرة حد يفتح الموقع
   fetch(API + '/visits', { method: 'POST' }).catch(function(){});
 })();
 
@@ -449,6 +451,8 @@ function gp(n) {
   if(n==='myrecipes') renderMy();
   if(n==='admin') renderAdmin();
   if(n==='profile') renderProf();
+  // حفظ الصفحة الحالية
+  localStorage.setItem('wpage', n);
   window.scrollTo(0,0);
 }
 
@@ -557,7 +561,9 @@ async function checkUrlTokens() {
 function afterLogin() {
   document.getElementById('navbar').style.display = 'flex';
   document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
-  gp('home');
+  // استعادة الصفحة الأخيرة بعد الريفرش
+  var lastPage = localStorage.getItem('wpage') || 'home';
+  gp(lastPage);
   toast('👋 أهلاً ' + cu.name);
 }
 
@@ -953,8 +959,9 @@ async function renderAdmin() {
     try {
       var vRes = await fetch(API + '/visits/count');
       var vData = await vRes.json();
-      document.getElementById('as4').textContent = vData.total.toLocaleString('ar-EG');
-    } catch(e) { document.getElementById('as4').textContent = '—'; }
+      document.getElementById('as4').textContent = (vData.pageViews||0).toLocaleString('ar-EG');
+      document.getElementById('as5').textContent = (vData.uniqueVisitors||0).toLocaleString('ar-EG');
+    } catch(e) { document.getElementById('as4').textContent = '—'; document.getElementById('as5').textContent = '—'; }
     document.getElementById('at1').innerHTML = recipes.map(function(r){
       return '<tr><td>'+r.emoji+' '+r.title+'</td><td>'+r.author_name+'</td><td>⭐'+(r.rating||0)+'</td><td>❤️'+r.likes+'</td>'+
         '<td><span class="ta" onclick="editR(\''+r.id+'\');document.getElementById(\'addMod\').classList.add(\'on\')">تعديل</span>'+
