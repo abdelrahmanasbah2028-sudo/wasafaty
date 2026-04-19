@@ -559,6 +559,8 @@ async function checkUrlTokens() {
 }
 
 function afterLogin() {
+  // إخفاء كل الصفحات أولاً
+  document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
   document.getElementById('navbar').style.display = 'flex';
   document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
   // استعادة الصفحة الأخيرة بعد الريفرش
