@@ -15,7 +15,7 @@
 }
 body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 .pg{display:none!important;min-height:100vh}.pg.on{display:block!important}
-#pg-login,#pg-register{align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8f5,#ffeee6)}#pg-login.on,#pg-register.on{display:flex!important}
+#pg-login,#pg-register{align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8f5,#ffeee6)}
 nav{background:var(--card);border-bottom:1px solid var(--border);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--shadow)}
 .logo{font-size:20px;font-weight:900;color:var(--p);cursor:pointer}
 .nav-links{display:flex;gap:4px;align-items:center}
@@ -500,10 +500,7 @@ async function doRegister() {
   if (!nm || !em || !ps) { toast('⚠️ اكمل البيانات'); return; }
   try {
     var data = await api('POST', '/auth/register', { name: nm, email: em, password: ps, country: co, phone: ph }, false);
-    // عرض رسالة التأكيد
-    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
-    document.getElementById('pg-login').classList.add('on');
-    document.getElementById('lsub-msg') && (document.getElementById('lsub-msg').textContent = '');
+    gp('login');
     toast('✅ تم إنشاء الحساب! تحقق من إيميلك عشان تأكد حسابك 📧', 6000);
   } catch(e) { toast('❌ ' + e.message); }
 }
