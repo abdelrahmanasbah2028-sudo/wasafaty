@@ -184,7 +184,7 @@ tr:last-child td{border:none}tr:hover td{background:#fafafa}
 </nav>
 
 <!-- LOGIN -->
-<div class="pg on" id="pg-login">
+<div class="pg" id="pg-login">
   <div class="lbox">
     <div class="llogo">🍽</div><div class="ltitle">وصفاتي</div>
     <div class="lsub">شارك أحلى وصفاتك مع العالم</div>
@@ -564,6 +564,9 @@ async function checkUrlTokens() {
 }
 
 function afterLogin() {
+  document.querySelectorAll('.pg').forEach(function(p){
+    p.classList.remove('on');
+  });
   // إخفاء كل الصفحات أولاً بشكل قاطع
   document.querySelectorAll('.pg').forEach(function(p){ 
     p.classList.remove('on');
