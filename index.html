@@ -438,6 +438,14 @@ async function api(method, path, body, auth) {
   }
 }
 
+// ======= PAGE STATE SAVE/RESTORE =======
+function savePage(page) {
+  localStorage.setItem('wlastpage', page);
+}
+function getSavedPage() {
+  return localStorage.getItem('wlastpage') || 'home';
+}
+
 // ======= NAV =======
 function gp(n) {
   document.querySelectorAll('.pg').forEach(function(p){ p.style.display='none'; });
@@ -448,6 +456,10 @@ function gp(n) {
   var map={home:0,myrecipes:1,profile:2,admin:3};
   var btns=document.querySelectorAll('.nb');
   if(map[n]!==undefined && btns[map[n]]) btns[map[n]].classList.add('on');
+  // حفظ الصفحة الحالية (ماعدا login/register/forgot/reset/verify)
+  if (['login','register','forgot','reset','verify'].indexOf(n) === -1) {
+    savePage(n);
+  }
   if(n==='home') renderHome();
   if(n==='myrecipes') renderMy();
   if(n==='admin') renderAdmin();
@@ -556,6 +568,10 @@ async function checkUrlTokens() {
 function afterLogin() {
   document.getElementById('navbar').style.display = 'flex';
   document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
+  // لو مفيش صفحة محفوظة قبل كده، نحفظ home كصفحة افتراضية
+  if (!localStorage.getItem('wlastpage')) {
+    savePage('home');
+  }
   gp('home');
   toast('👋 أهلاً ' + cu.name);
 }
@@ -563,6 +579,7 @@ function afterLogin() {
 function logout() {
   cu = null; token = null;
   localStorage.removeItem('wcu'); localStorage.removeItem('wtoken');
+  localStorage.removeItem('wlastpage');
   document.getElementById('navbar').style.display = 'none';
   gp('login');
 }
@@ -1171,7 +1188,18 @@ async function init() {
     token = localStorage.getItem('wtoken') || null;
 
     if (cu && token) {
-      afterLogin();
+      // لو فيه صفحة محفوظة قبل كده، نروح ليها
+      var savedPage = getSavedPage();
+      // نتأكد إن الصفحة المحفوظة مش login/register
+      if (savedPage && ['login','register','forgot','reset','verify'].indexOf(savedPage) === -1) {
+        // نجهز الـ navbar الأول
+        document.getElementById('navbar').style.display = 'flex';
+        document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
+        // نروح للصفحة المحفوظة
+        gp(savedPage);
+      } else {
+        afterLogin();
+      }
     } else {
       gp('login');
     }
