@@ -440,26 +440,18 @@ async function api(method, path, body, auth) {
 
 // ======= NAV =======
 function gp(n) {
-  // إخفاء كل الصفحات بـ style مباشرة
-  document.querySelectorAll('.pg').forEach(function(p){
-    p.style.display = 'none';
-    p.classList.remove('on');
-  });
-  // إظهار الصفحة المطلوبة
-  var target = document.getElementById('pg-'+n);
-  var isCenter = (n==='login'||n==='register'||n==='forgot'||n==='reset'||n==='verify');
-  target.style.display = isCenter ? 'flex' : 'block';
-  target.classList.add('on');
-  // navbar buttons
+  document.querySelectorAll('.pg').forEach(function(p){ p.style.display='none'; });
+  var pg = document.getElementById('pg-'+n);
+  if(!pg) return;
+  pg.style.display = (n==='login'||n==='register'||n==='forgot'||n==='reset'||n==='verify') ? 'flex' : 'block';
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on')});
   var map={home:0,myrecipes:1,profile:2,admin:3};
   var btns=document.querySelectorAll('.nb');
-  if(map[n]!==undefined) btns[map[n]].classList.add('on');
+  if(map[n]!==undefined && btns[map[n]]) btns[map[n]].classList.add('on');
   if(n==='home') renderHome();
   if(n==='myrecipes') renderMy();
   if(n==='admin') renderAdmin();
   if(n==='profile') renderProf();
-  localStorage.setItem('wpage', n);
   window.scrollTo(0,0);
 }
 
