@@ -564,8 +564,7 @@ async function checkUrlTokens() {
 function afterLogin() {
   document.getElementById('navbar').style.display = 'flex';
   document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
-  var lastPage = localStorage.getItem('wpage') || 'home';
-  gp(lastPage);
+  gp('home');
   toast('👋 أهلاً ' + cu.name);
 }
 
