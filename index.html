@@ -14,7 +14,7 @@
   --r:14px;--rs:8px
 }
 body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.pg{display:none!important;min-height:100vh}.pg.on{display:block!important}
+.pg{display:none;min-height:100vh}
 #pg-login,#pg-register{align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8f5,#ffeee6)}
 nav{background:var(--card);border-bottom:1px solid var(--border);height:60px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--shadow)}
 .logo{font-size:20px;font-weight:900;color:var(--p);cursor:pointer}
@@ -184,7 +184,7 @@ tr:last-child td{border:none}tr:hover td{background:#fafafa}
 </nav>
 
 <!-- LOGIN -->
-<div class="pg" id="pg-login">
+<div class="pg on" id="pg-login">
   <div class="lbox">
     <div class="llogo">🍽</div><div class="ltitle">وصفاتي</div>
     <div class="lsub">شارك أحلى وصفاتك مع العالم</div>
@@ -440,24 +440,18 @@ async function api(method, path, body, auth) {
 
 // ======= NAV =======
 function gp(n) {
-  document.querySelectorAll('.pg').forEach(function(p){
-    p.classList.remove('on');
-    p.style.display = 'none';
-  });
-  var target = document.getElementById('pg-'+n);
-  target.classList.add('on');
-  target.style.display = '';
+  document.querySelectorAll('.pg').forEach(function(p){ p.style.display='none'; });
+  var pg = document.getElementById('pg-'+n);
+  if(!pg) return;
+  pg.style.display = (n==='login'||n==='register'||n==='forgot'||n==='reset'||n==='verify') ? 'flex' : 'block';
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on')});
   var map={home:0,myrecipes:1,profile:2,admin:3};
   var btns=document.querySelectorAll('.nb');
-  if(map[n]!==undefined) btns[map[n]].classList.add('on');
-  if(n==='admin') btns[3]&&btns[3].classList.add('on');
+  if(map[n]!==undefined && btns[map[n]]) btns[map[n]].classList.add('on');
   if(n==='home') renderHome();
   if(n==='myrecipes') renderMy();
   if(n==='admin') renderAdmin();
   if(n==='profile') renderProf();
-  // حفظ الصفحة الحالية
-  localStorage.setItem('wpage', n);
   window.scrollTo(0,0);
 }
 
@@ -472,7 +466,7 @@ async function doLogin() {
     document.getElementById('resendBox').style.display = 'none';
     afterLogin();
   } catch(e) {
-    if (e.message && (e.message.includes('تأكد إيميلك') || e.message.includes('verification'))) {
+    if (e.message && (e.message.includes('تأكد إيميلك') || e.message.includes('verification') || e.message.includes('مأكدتش'))) {
       toast('📧 ' + e.message, 4000);
       document.getElementById('resendBox').style.display = 'block';
     } else {
@@ -500,6 +494,7 @@ async function doRegister() {
   if (!nm || !em || !ps) { toast('⚠️ اكمل البيانات'); return; }
   try {
     var data = await api('POST', '/auth/register', { name: nm, email: em, password: ps, country: co, phone: ph }, false);
+    // عرض رسالة التأكيد
     gp('login');
     toast('✅ تم إنشاء الحساب! تحقق من إيميلك عشان تأكد حسابك 📧', 6000);
   } catch(e) { toast('❌ ' + e.message); }
@@ -535,8 +530,7 @@ async function checkUrlTokens() {
   var resetToken = params.get('reset');
 
   if (verifyToken) {
-    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
-    document.getElementById('pg-verify').classList.add('on');
+    gp('verify');
     try {
       var data = await api('GET', '/auth/verify?token='+verifyToken, null, false);
       document.getElementById('verifyMsg').innerHTML = '<span style="color:#15803d;font-size:16px">✅ '+data.message+'<br/><br/><span style="font-size:13px">جاري تسجيل الدخول...</span></span>';
@@ -552,8 +546,7 @@ async function checkUrlTokens() {
 
   if (resetToken) {
     resetTokenVal = resetToken;
-    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
-    document.getElementById('pg-reset').classList.add('on');
+    gp('reset');
     window.history.replaceState({}, document.title, window.location.pathname);
     return true;
   }
@@ -561,16 +554,9 @@ async function checkUrlTokens() {
 }
 
 function afterLogin() {
-  // إخفاء كل الصفحات أولاً بشكل قاطع
-  document.querySelectorAll('.pg').forEach(function(p){ 
-    p.classList.remove('on');
-    p.style.display = 'none';
-  });
   document.getElementById('navbar').style.display = 'flex';
   document.getElementById('admBtn').style.display = cu.isAdmin ? 'inline-block' : 'none';
-  // استعادة الصفحة الأخيرة بعد الريفرش
-  var lastPage = localStorage.getItem('wpage') || 'home';
-  gp(lastPage);
+  gp('home');
   toast('👋 أهلاً ' + cu.name);
 }
 
@@ -1172,8 +1158,18 @@ function closeImgPreview() {
 
 // ======= INIT =======
 async function init() {
-  var handled = await checkUrlTokens();
+  var handled = false;
+  try {
+    handled = await checkUrlTokens();
+  } catch(e) {
+    console.error('Token check error:', e);
+  }
+
   if (!handled) {
+    // Re-read localStorage in case it was set after initial load
+    cu = JSON.parse(localStorage.getItem('wcu') || 'null');
+    token = localStorage.getItem('wtoken') || null;
+
     if (cu && token) {
       afterLogin();
     } else {
